@@ -12,6 +12,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
             value = "SELECT * FROM role WHERE id NOT IN (SELECT role_id FROM user_role WHERE user_id = ?1)",
             nativeQuery = true
     )
-    List<Role> getUserNotRoles(Integer userId);
+    List<Role> getUserNotRoles(Long userId);
 }
 

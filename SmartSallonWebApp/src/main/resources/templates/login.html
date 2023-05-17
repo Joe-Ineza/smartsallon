@@ -28,7 +28,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-image: url('../static/img/pexels-pixabay-267885.jpg');
+      /*background-image: url('../static/img/rwanda-nyungwe-nyungwe-park-forest.jpg');*/
 
 
     }
@@ -37,7 +37,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-image: url('../static/img/pexels-pixabay-265020.jpg');
+      /*background-image: url('../static/img/pexels-pixabay-265020.jpg');*/
 
 
     }
@@ -190,7 +190,7 @@
     .box form .inputBox span{
       position:absolute;
       left: 0;
-      padding: 20px 0px 10px;
+      padding: 20px 0 10px;
       pointer-events: none;
       color: #ffffff;
       font-size: 1em;
@@ -288,6 +288,7 @@
   <title>login</title>
 </head>
 <body>
+
 <h1>Login</h1>
 <span th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null and session[SPRING_SECURITY_LAST_EXCEPTION].message != null}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">Invalid credentials</span>
 <div class="box">
@@ -312,4 +313,7 @@
   </form>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-rV7i+TN1n0V7nZzQCtfMhz9TqtzLmrsQ7erW8ssvE1fIroOxjK2cYiZ0YzXeO/BG" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </html>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>New Customer</title>
+  <title>New User</title>
+  <a href="/index" class="btn btn-primary">HOME</a>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
@@ -37,13 +38,9 @@
       </div>
     </div>
 
-
-
     <button type="submit" class="btn btn-primary">Sign Up</button>
-    <a th:href ="@{/login}">If you already have an account, Please login</a>
+    <a th:href="@{/login}">If you already have an account, please log in</a>
   </form>
-
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

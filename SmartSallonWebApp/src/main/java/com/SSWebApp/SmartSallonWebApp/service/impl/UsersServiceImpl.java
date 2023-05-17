@@ -1,9 +1,7 @@
 package com.SSWebApp.SmartSallonWebApp.service.impl;
 
 import com.SSWebApp.SmartSallonWebApp.dto.UsersDTO;
-import com.SSWebApp.SmartSallonWebApp.mapper.CustomerMapper;
 import com.SSWebApp.SmartSallonWebApp.mapper.UsersMapper;
-import com.SSWebApp.SmartSallonWebApp.models.Customer;
 import com.SSWebApp.SmartSallonWebApp.models.Users;
 import com.SSWebApp.SmartSallonWebApp.repository.UsersRepository;
 import com.SSWebApp.SmartSallonWebApp.service.UsersService;
@@ -32,8 +30,14 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public List<UsersDTO> getAllUsersByEmail(String email) {
-        List<Users> users = usersRepository.findAllByUserName(email);
+    public List<Users> getAllUsers() {
+        List<Users> users = usersRepository.findAll();
+        return users;
+    }
+
+    @Override
+    public List<UsersDTO> getAllUsersByUserName(String username) {
+        List<Users> users = usersRepository.findAllByUserName(username);
         return users.stream().map(UsersMapper::toDto).collect(Collectors.toList());
     }
 }

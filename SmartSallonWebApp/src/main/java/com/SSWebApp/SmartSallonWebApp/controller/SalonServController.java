@@ -36,14 +36,14 @@ public class SalonServController {
     public String getSalonServById(@PathVariable Long id, Model model) {
         SalonServDTO salonServDTO = salonServService.getSalonServById(id);
         model.addAttribute("salonServ", salonServDTO);
-        return "salonServ/details";
+        return "redirect:/salonServs";
     }
 
     @GetMapping("salonServ/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
         SalonServDTO salonServDTO = salonServService.getSalonServById(id);
         model.addAttribute("salonServ", salonServDTO);
-        return "salonServ/edit";
+        return "salonServ-edit";
     }
 
     @PostMapping("salonServ/{id}/edit")
@@ -55,7 +55,7 @@ public class SalonServController {
     @PostMapping("salonServ/{id}/delete")
     public String deleteSalonServById(@PathVariable Long id) {
         salonServService.deleteSalonServById(id);
-        return "redirect:/salonServ";
+        return "redirect:/salonServs";
     }
 
     @GetMapping("/salonServs")

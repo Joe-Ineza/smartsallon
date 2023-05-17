@@ -21,4 +21,7 @@ public class Role extends Auditable<String> {
     private Long id;
     private String description;
     private String details;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<Users> users;
 }

@@ -4,6 +4,7 @@ import com.SSWebApp.SmartSallonWebApp.Exceptions.ResourceNotFoundException;
 import com.SSWebApp.SmartSallonWebApp.dto.CustomerDTO;
 
 import com.SSWebApp.SmartSallonWebApp.mapper.CustomerMapper;
+import com.SSWebApp.SmartSallonWebApp.models.Appointment;
 import com.SSWebApp.SmartSallonWebApp.models.Customer;
 import com.SSWebApp.SmartSallonWebApp.repository.CustomerRepository;
 import com.SSWebApp.SmartSallonWebApp.service.CustomerService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,4 +71,10 @@ public class CustomerServiceImpl implements CustomerService {
         return customers.stream().map(CustomerMapper::toDto).collect(Collectors.toList());
 
     }
+
+//    public Set<Appointment> getAllAppointmentByCustomer(Long customerId) {
+//        Set<Appointment> appoints = customerRepository.findAppointmentsByCustomer(customerId);
+//        return appoints;
+//
+//    }
 }

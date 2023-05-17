@@ -1,9 +1,11 @@
 package com.SSWebApp.SmartSallonWebApp.controller;
 
-import com.SSWebApp.SmartSallonWebApp.dto.CustomerDTO;
-import com.SSWebApp.SmartSallonWebApp.dto.RegistrationDTO;
-import com.SSWebApp.SmartSallonWebApp.dto.StaffDTO;
-import com.SSWebApp.SmartSallonWebApp.dto.UsersDTO;
+import com.SSWebApp.SmartSallonWebApp.dto.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.SSWebApp.SmartSallonWebApp.mapper.CustomerMapper;
 import com.SSWebApp.SmartSallonWebApp.mapper.StaffMapper;
 import com.SSWebApp.SmartSallonWebApp.mapper.UsersMapper;
@@ -25,6 +27,10 @@ import java.util.List;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     private final UsersService usersService;
 
     private final StaffRepository staffRepository;
@@ -46,7 +52,7 @@ public class HomeController {
         this.usersMapper = usersMapper;
     }
 
-    @RequestMapping("/home")
+    @RequestMapping("/index")
     public String goHome() {
         return "index";
     }
@@ -56,9 +62,11 @@ public class HomeController {
         return "login";
     }
 
+
+
     @RequestMapping("/logout-success")
     public String logoutPage() {
-        return "logout";
+        return "redirect:/index";
     }
 
     @GetMapping("/accessDenied")
@@ -66,11 +74,6 @@ public class HomeController {
         return "accessDenied";
     }
 
-    @GetMapping("customerLandPage")
-    public String customerPage()
-    {
-        return "customerLandPage";
-    }
 
     @GetMapping("/register")
     public String showNewCustomerForm(Model model) {
@@ -99,28 +102,25 @@ public class HomeController {
 
 
         UsersDTO usersDTO = new UsersDTO();
-        List<UsersDTO> usersList = usersService.getAllUsersByEmail(registrationDTO.getEmail());
-        if(registrationDTO.getEmail().contains("acmemply.7"))
-        {
+        List<UsersDTO> usersList = usersService.getAllUsersByUserName(registrationDTO.getEmail());
+        if (registrationDTO.getEmail().contains("acmemply.7")) {
 
-            if(usersList.isEmpty()) {
+            if (usersList.isEmpty()) {
                 StaffDTO staffDTO = new StaffDTO();
                 staffDTO.setName(registrationDTO.getName());
                 staffDTO.setEmail(registrationDTO.getEmail());
                 usersDTO.setUserName(registrationDTO.getEmail());
-                usersDTO.setPassword(registrationDTO.getPassword());
+                usersDTO.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
                 staffDTO.setPhoneNumber(registrationDTO.getPhoneNumber());
                 staffRepository.save(staffMapper.toEntity(staffDTO));
                 usersRepository.save(usersMapper.toEntity(usersDTO));
-            }
-            else
-            {
+                return "redirect:/login";
+            } else {
 
                 return "redirect:/register";
 
             }
-        }
-        else if(usersList.isEmpty()) {
+        } else if (usersList.isEmpty()) {
 
 
             CustomerDTO customerDTO = new CustomerDTO();
@@ -129,27 +129,15 @@ public class HomeController {
             customerDTO.setPhoneNumber(registrationDTO.getPhoneNumber());
             customerRepository.save(customerMapper.toEntity(customerDTO));
             usersDTO.setUserName(registrationDTO.getEmail());
-            usersDTO.setPassword(registrationDTO.getPassword());
+            usersDTO.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
             usersRepository.save(usersMapper.toEntity(usersDTO));
-        }
-        else
-        {
-                return "redirect:/register";
-        }
-
-        if(registrationDTO.getEmail().contains("acmemply.7"))
-        {
-            return "redirect:/appointments";
-        }
-        else if(registrationDTO.getEmail().contains("joe.7")){
-            return "redirect:/customerLandPage";
-        }
-        else
-        {
             return "redirect:/login";
+        } else {
+            return "redirect:/register";
         }
 
     }
+}
 
 
 
@@ -157,4 +145,4 @@ public class HomeController {
 //    public String showConfirmLoginPage() {
 //        return "confirm-login";
 //    }
-}
+

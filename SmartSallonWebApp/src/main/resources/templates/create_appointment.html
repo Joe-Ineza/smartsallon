@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <title>Create Appointment</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.0/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
 
     <!-- Custom CSS -->
-    <!--    <link rel="stylesheet" th:href="@{/css/styles.css}" />-->
+    <link rel="stylesheet" href="path/to/custom-styles.css" />
 </head>
 
 <body>
@@ -23,23 +22,16 @@
 
         <!-- Start Date and Time -->
         <div class="form-group">
-            <label for="startDateTime">Start Date and Time:</label>
-            <input type="datetime-local" class="form-control" id="startDateTime" th:field="*{startDateTime}" />
-            <span th:if="${#fields.hasErrors('startDateTime')}" th:errors="*{startDateTime}" class="text-danger"></span>
-        </div>
-
-        <!-- End Date and Time -->
-        <div class="form-group">
-            <label for="endDateTime">End Date and Time:</label>
-            <input type="datetime-local" class="form-control" id="endDateTime" th:field="*{endDateTime}" />
-            <span th:if="${#fields.hasErrors('endDateTime')}" th:errors="*{endDateTime}" class="text-danger"></span>
+            <label for="dateTime">Appointment Date and Time:</label>
+            <input type="datetime-local" class="form-control" id="dateTime" th:field="*{dateTime}" />
+            <span th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}" class="text-danger"></span>
         </div>
 
         <!-- Customer -->
         <div class="form-group">
             <label for="customer">Customer:</label>
             <select class="form-control" id="customer" th:field="*{customer}">
-                <option th:each="customer : ${customers}" th:value="${customer.getId()}" th:text="${customer.phoneNumber}"></option>
+                <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.phoneNumber}"></option>
             </select>
             <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="text-danger"></span>
         </div>
@@ -48,28 +40,23 @@
         <div class="form-group">
             <label for="staff">Staff:</label>
             <select class="form-control" id="staff" th:field="*{staff}">
-                <option th:each="staff : ${staffs}" th:value="${staff.getId()}" th:text="${staff.name}" />
+                <option th:each="staff : ${staffs}" th:value="${staff.id}" th:text="${staff.name}" />
             </select>
             <span th:if="${#fields.hasErrors('staff')}" th:errors="*{staff}" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label for="staff">Service Offered:</label>
+            <label for="salonServ">Service Offered:</label>
             <select class="form-control" id="salonServ" th:field="*{salonServ}">
-                <option th:each="salonServ : ${servicesOffered}" th:value="${salonServ.getId()}" th:text="${salonServ.serviceOffered}" />
+                <option th:each="salonServ : ${servicesOffered}" th:value="${salonServ.id}" th:text="${salonServ.serviceOffered}" />
             </select>
             <span th:if="${#fields.hasErrors('salonServ')}" th:errors="*{salonServ}" class="text-danger"></span>
         </div>
 
-
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
 </div>
 
-<!-- Bootstrap JS -->
-<script th:src="@{/webjars/bootstrap/5.1.0/js/bootstrap.min.js}"></script>
-</body>
-
-</html>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper"></script>

@@ -17,11 +17,9 @@ import java.time.LocalDateTime;
 public class AppointmentDTO {
     private Long id;
 
-    @NotNull(message = "Start date and time is required")
-    private LocalDateTime startDateTime;
+    @NotNull(message = "Appointment Time is required")
+    private String dateTime;
 
-    @NotNull(message = "End date and time is required")
-    private LocalDateTime endDateTime;
 
     @NotNull(message = "Customer is required")
     private Customer customer;

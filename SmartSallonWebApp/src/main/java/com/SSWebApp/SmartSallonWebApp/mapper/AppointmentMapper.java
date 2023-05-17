@@ -10,14 +10,16 @@ import com.SSWebApp.SmartSallonWebApp.dto.CustomerDTO;
 
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Component
 public class AppointmentMapper {
 
     public static AppointmentDTO toDto(Appointment appointment) {
         AppointmentDTO dto = new AppointmentDTO();
         dto.setId(appointment.getId());
-        dto.setStartDateTime(appointment.getDateTime());
-        dto.setEndDateTime(appointment.getDateTime().plusHours(1));
+        dto.setDateTime(appointment.getDateTime().plusHours(1).toString());
         dto.setCustomer(appointment.getCustomer());
         dto.setStaff(appointment.getStaff());
         dto.setSalonServ(appointment.getSalonServ());
@@ -27,7 +29,11 @@ public class AppointmentMapper {
     public static Appointment toEntity(AppointmentDTO dto) {
         Appointment appointment = new Appointment();
         appointment.setId(dto.getId());
-        appointment.setDateTime(dto.getStartDateTime());
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+        // Parse the string into a LocalDateTime object
+        LocalDateTime dateTime = LocalDateTime.parse(dto.getDateTime(), formatter);
+        appointment.setDateTime(dateTime);
         appointment.setCustomer(dto.getCustomer());
         appointment.setStaff(dto.getStaff());
         appointment.setSalonServ(dto.getSalonServ());
@@ -37,8 +43,12 @@ public class AppointmentMapper {
 
 
     public static void updateModelFromDto(AppointmentDTO dto, Appointment appointment) {
-        if (dto.getStartDateTime() != null) {
-            appointment.setDateTime(dto.getStartDateTime());
+        if (dto.getDateTime() != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+            // Parse the string into a LocalDateTime object
+            LocalDateTime dateTime = LocalDateTime.parse(dto.getDateTime(), formatter);
+            appointment.setDateTime(dateTime);
         }
         if (dto.getCustomer() != null && dto.getCustomer().getId() != null) {
             appointment.setCustomer(dto.getCustomer());

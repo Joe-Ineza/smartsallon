@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>iPortfolio Bootstrap Template - Index</title>
+    <title>customer</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -23,6 +23,8 @@
     <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <!-- Template Main CSS File -->
     <link href="../static/css/style.css" rel="stylesheet">
@@ -39,12 +41,13 @@
 <body>
 
 <!-- ======= Mobile nav toggle button ======= -->
+
 <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
 
 <!-- ======= Header ======= -->
 <header id="header">
     <div class="d-flex flex-column">
-
+        <a th:href="@{/logout}" class="btn btn-primary">Logout</a>
         <div class="profile">
             <img src="../static/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
             <h1 class="text-light"><a href="index.html">Alex Smith</a></h1>
@@ -61,8 +64,10 @@
             <ul>
                 <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
                 <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
-                <li><a href="/appointment/create" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-                <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+                <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
+                <li><a href="#appointments" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Appointments</span></a></li>
+                <li><a href="#contact"  class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+
             </ul>
         </nav><!-- .nav-menu -->
     </div>
@@ -71,7 +76,7 @@
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
-        <a th:href ="@{/logout}">Logout</a>
+
         <h1>Smart Sallon</h1>
         <p>We <span class="typed" data-typed-items="HairCut, Beard and Mustache trim, Facials, ShoeShine..."></span></p>
     </div>
@@ -130,48 +135,92 @@
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
         <div class="container">
-
             <div class="section-title">
-                <h2>Services</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-            </div>
+                <h2>BOOK Appointment</h2>
 
-            <div class="row">
-                <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
-                    <div class="icon"><i class="bi bi-briefcase"></i></div>
-                    <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                    <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-                </div>
-                <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon"><i class="bi bi-card-checklist"></i></div>
-                    <h4 class="title"><a href="">Dolor Sitema</a></h4>
-                    <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-                </div>
-                <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
-                    <div class="icon"><i class="bi bi-bar-chart"></i></div>
-                    <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-                    <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-                </div>
-                <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
-                    <div class="icon"><i class="bi bi-binoculars"></i></div>
-                    <h4 class="title"><a href="">Magni Dolores</a></h4>
-                    <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                </div>
-                <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
-                    <div class="icon"><i class="bi bi-brightness-high"></i></div>
-                    <h4 class="title"><a href="">Nemo Enim</a></h4>
-                    <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-                </div>
-                <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
-                    <div class="icon"><i class="bi bi-calendar4-week"></i></div>
-                    <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-                    <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-                </div>
             </div>
+            <form th:action="@{/appointment-create}" th:object="${appointmentDTO}" method="post">
 
+                <!-- Start Date and Time -->
+                <div class="form-group">
+                    <label for="dateTime">Appointment Date and Time:</label>
+                    <input type="datetime-local" class="form-control" id="dateTime" th:field="*{dateTime}" />
+                    <span th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}" class="text-danger"></span>
+                </div>
+
+                <!-- Customer -->
+                <div class="form-group">
+                    <label for="customer">Customer:</label>
+                    <select class="form-control" id="customer" th:field="*{customer}">
+                        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.phoneNumber}"></option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="text-danger"></span>
+                </div>
+
+                <!-- Staff -->
+                <div class="form-group">
+                    <label for="staff">Staff:</label>
+                    <select class="form-control" id="staff" th:field="*{staff}">
+                        <option th:each="staff : ${staffs}" th:value="${staff.id}" th:text="${staff.name}" />
+                    </select>
+                    <span th:if="${#fields.hasErrors('staff')}" th:errors="*{staff}" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="salonServ">Service Offered:</label>
+                    <select class="form-control" id="salonServ" th:field="*{salonServ}">
+                        <option th:each="salonServ : ${servicesOffered}" th:value="${salonServ.id}" th:text="${salonServ.serviceOffered}" />
+                    </select>
+                    <span th:if="${#fields.hasErrors('salonServ')}" th:errors="*{salonServ}" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </section><!-- End Services Section -->
+    <!-- Start Appointments Section -->
 
+    <section id="appointments" class="services">
+        <div class="container">
+            <h1 style="color: red">Kindly Check your email for appointments made</h1>
+            <a class="btn btn-primary" href="/appointment-create">New Appointment</a>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function() {
+                // Add click event listener to the sort button
+                $('#sortButton').click(function() {
+                    // Get the table body and its rows
+                    var tableBody = $('tbody');
+                    var tableRows = tableBody.find('tr');
+
+                    // Sort the rows by StartDateTime and EndDateTime
+                    tableRows.sort(function(a, b) {
+                        var aStart = $(a).find('td:nth-child(5)').text();
+                        var bStart = $(b).find('td:nth-child(5)').text();
+                        var aEnd = $(a).find('td:nth-child(6)').text();
+                        var bEnd = $(b).find('td:nth-child(6)').text();
+                        return new Date(aStart) - new Date(bStart) || new Date(aEnd) - new Date(bEnd);
+                    });
+
+                    // Clear the table body and append the sorted rows
+                    tableBody.empty().append(tableRows);
+                });
+            });
+        </script>
+        </div>
+    </section><!-- End Appointments Section -->
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
@@ -179,7 +228,7 @@
 
             <div class="section-title">
                 <h2>Contact</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+
             </div>
 
             <div class="row" data-aos="fade-in">
@@ -208,34 +257,7 @@
 
                 </div>
 
-                <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="name">Your Name</label>
-                                <input type="text" name="name" class="form-control" id="name" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="name">Your Email</label>
-                                <input type="email" class="form-control" name="email" id="email" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Subject</label>
-                            <input type="text" class="form-control" name="subject" id="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Message</label>
-                            <textarea class="form-control" name="message" rows="10" required></textarea>
-                        </div>
-                        <div class="my-3">
-                            <div class="loading">Loading</div>
-                            <div class="error-message"></div>
-                            <div class="sent-message">Your message has been sent. Thank you!</div>
-                        </div>
-                        <div class="text-center"><button type="submit">Send Message</button></div>
-                    </form>
-                </div>
+
 
             </div>
 

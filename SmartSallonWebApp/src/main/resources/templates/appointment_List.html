@@ -18,8 +18,7 @@
             <th>Client Name</th>
             <th>Phone Number</th>
             <th>Email</th>
-            <th>Book Start</th>
-            <th>Book Ends</th>
+            <th>Booked Date and Time</th>
             <th>Employee</th>
         </tr>
         </thead>
@@ -29,8 +28,7 @@
             <td th:text="${appointmentDTO.customer.name}"></td>
             <td th:text="${appointmentDTO.customer.phoneNumber}"></td>
             <td th:text="${appointmentDTO.customer.email}"></td>
-            <td th:text="${appointmentDTO.getStartDateTime()}"></td>
-            <td th:text="${appointmentDTO.getEndDateTime()}"></td>
+            <td th:text="${appointmentDTO.getDateTime()}"></td>
             <td th:text="${appointmentDTO.staff.name}"></td>
         </tr>
         </tbody>

@@ -53,7 +53,7 @@ public class AppointmentController {
     }
 
     @PostMapping("/appointment/create")
-    public String createAppointment(@ModelAttribute("appointmentDTO") @Valid AppointmentDTO appointmentDTO, BindingResult result, Model model) {
+    public String createAppointment(@ModelAttribute("appointmentDTO") @Valid AppointmentDTO appointmentDTO, BindingResult result) {
         if (result.hasErrors()) {
             return "create_appointment";
         }

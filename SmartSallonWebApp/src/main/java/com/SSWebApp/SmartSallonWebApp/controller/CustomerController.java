@@ -1,10 +1,20 @@
 package com.SSWebApp.SmartSallonWebApp.controller;
 
 import com.SSWebApp.SmartSallonWebApp.Exceptions.ResourceNotFoundException;
+import com.SSWebApp.SmartSallonWebApp.dto.AppointmentDTO;
+import com.SSWebApp.SmartSallonWebApp.dto.CustomerDTO;
+import com.SSWebApp.SmartSallonWebApp.mapper.CustomerMapper;
+import com.SSWebApp.SmartSallonWebApp.models.Appointment;
 import com.SSWebApp.SmartSallonWebApp.models.Customer;
 import com.SSWebApp.SmartSallonWebApp.repository.CustomerRepository;
+import com.SSWebApp.SmartSallonWebApp.service.AppointmentService;
+import com.SSWebApp.SmartSallonWebApp.service.CustomerService;
+import com.SSWebApp.SmartSallonWebApp.service.SalonServService;
+import com.SSWebApp.SmartSallonWebApp.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +23,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
+import java.util.Set;
 
 
 import org.springframework.stereotype.Controller;
@@ -23,8 +32,24 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class CustomerController {
 
+
+    private final CustomerRepository customerRepository;
+    private final AppointmentService appointmentService;
+    private final CustomerService customerService;
+    private final CustomerMapper customerMapper;
+
+    private final StaffService staffService;
+
+    private final SalonServService salonServService;
     @Autowired
-    private CustomerRepository customerRepository;
+    public CustomerController(CustomerRepository customerRepository, AppointmentService appointmentService, CustomerService customerService, CustomerMapper customerMapper, StaffService staffService, SalonServService salonServService) {
+        this.customerRepository = customerRepository;
+        this.appointmentService = appointmentService;
+        this.customerService = customerService;
+        this.customerMapper = customerMapper;
+        this.staffService = staffService;
+        this.salonServService = salonServService;
+    }
 
     @GetMapping("/customers")
     public String getAllCustomers(Model model) {
@@ -89,4 +114,35 @@ public class CustomerController {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+
+
+    @GetMapping("/customerLandPage")
+    public String customerPage(Model model)
+    {
+        AppointmentDTO appointmentDTO = new AppointmentDTO();
+        model.addAttribute("appointmentDTO", appointmentDTO);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        List<CustomerDTO> customers = customerService.getAllCustomersByEmail(username);
+//        CustomerDTO customer = customerService.getCustomerById(customers.get(0).getId());
+//        Customer customerChanged = customerMapper.toEntity(customer);
+//        Set<Appointment> appoints = customerService.getAllAppointmentByCustomer(customerChanged.getId());
+////        model.addAttribute("appointments", appointments);
+////        Set<Appointment> appoints = customerService.getAllAppointmentByCustomer(customers.get(0).getId());
+//        model.addAttribute("appoints",appoints);
+        model.addAttribute("customers",customers);
+        model.addAttribute("staffs", staffService.findAll());
+        model.addAttribute("servicesOffered", salonServService.getAllSalonServ());
+
+        return "customerLandPage";
+    }
+    @PostMapping("/appointment-create")
+    public String createAppointment(@ModelAttribute("appointmentDTO") @Valid AppointmentDTO appointmentDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            return "create_appointment";
+        }
+        appointmentService.createAppointment(appointmentDTO);
+        return "redirect:/customerLandPage";
+    }
+
 }

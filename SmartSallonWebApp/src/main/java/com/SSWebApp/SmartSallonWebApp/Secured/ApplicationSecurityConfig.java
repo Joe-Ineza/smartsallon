@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,10 +35,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login", "/resources/**", "/css/**", "/fonts/**", "/img/**").permitAll()
                 .antMatchers("/register", "/resources/**", "/css/**", "/fonts/**", "/img/**", "/js/**").permitAll()
-                .antMatchers("/users/addNew").permitAll()
-                .antMatchers("/security/user/Edit/**").hasAuthority("ADMIN")
-                .antMatchers("/appointments").permitAll()
-                .antMatchers("/staffs","/customers").hasAuthority("STAFF")
+                .antMatchers("/security/**", "/resources/**", "/css/**", "/fonts/**", "/img/**", "/js/**").permitAll()
+//                .antMatchers("/users/addNew").permitAll()
+//               .antMatchers("/security/**").hasAuthority("ADMIN")
+//                .antMatchers("/appointments").permitAll()
+//                .antMatchers("/staffs","/customers").hasAuthority("STAFF")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

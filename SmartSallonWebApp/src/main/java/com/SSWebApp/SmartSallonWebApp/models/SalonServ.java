@@ -22,7 +22,7 @@ public class SalonServ {
     @NotBlank(message = "Service is required")
     private String serviceOffered;
 
-    @NotBlank(message = "Phone number is required")
+    @NotBlank(message = "Price is required")
     private String price;
 
     @OneToMany(mappedBy = "salonServ", cascade = CascadeType.ALL)

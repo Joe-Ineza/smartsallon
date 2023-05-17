@@ -19,7 +19,8 @@ public class SalonServMapper {
         salonServ.setId(dto.getId());
         salonServ.setGender(dto.getGender());
         salonServ.setServiceOffered(dto.getServiceOffered());
-        salonServ.setPrice(salonServ.getPrice());
+        salonServ.setPrice(dto.getPrice());
+
         return salonServ;
     }
 }
